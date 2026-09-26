@@ -87,8 +87,8 @@ def _mode_words(action: str, mode: str) -> str:
 # PORT UI: Speech holds who speaks the game - Speech output - and SAPI 5's own voice while SAPI 5 is what
 # speaks.  Keyboard holds the key bindings alone, and Joystick a game controller's buttons.  Miscellaneous is
 # last and holds the rest: how the cursor moves through a screen, when the tutorial's lines are shown as
-# text and what they name, how a controller vibrates and how a DualSense's triggers feel, whether the game
-# looks for updates, and the one button that puts every setting back.
+# text and what they name, how a controller vibrates and how a DualSense's triggers feel, and the one
+# button that puts every setting back.
 CATEGORIES = (('aiming', 'Aiming'), ('controls', 'Controls'), ('sound', 'Sound'), ('speech', 'Speech'),
               ('keyboard', 'Keyboard'), ('joystick', 'Joystick'), ('misc', 'Miscellaneous'))
 PAD_BINDING_HINT = ('Press Enter to add a button, Shift Enter to replace them all, '
@@ -192,10 +192,6 @@ class ControlSchemePanel:
                         "its triggers are while you play: R2 like a gun's trigger, L2 a pull where it "
                         'reloads. Press Enter for the next setting and Shift plus Enter for the previous.',
                    action=self.step_trigger_level, shift_action=self.step_trigger_level_back)
-            t.cell('Check for updates when the game starts', 'ON' if params.check_updates() else 'OFF',
-                   hint='Press Enter to toggle: when on, the main menu looks for a new build and tells '
-                        'you only if there is one.',
-                   action=self.toggle_check_updates)
             t.cell('Reset all settings',
                    hint='Press Enter to put every setting back to its default. Your key and controller '
                         'bindings stay as they are.',
@@ -439,13 +435,6 @@ class ControlSchemePanel:
         self.announce('Remember cursor position %s' % ('ON' if params.remember_focus() else 'OFF'))
 
     # --- miscellaneous (PORT ADDITION) -----------------------------------------------------------
-    def toggle_check_updates(self) -> None:
-        params = GameParameters.shared()
-        params.set_check_updates(not params.check_updates())
-        self.reload_data()
-        self.announce('Check for updates when the game starts %s'
-                      % ('ON' if params.check_updates() else 'OFF'))
-
     def reset_all_settings(self) -> None:
         """Every setting on these pages back to where a new profile starts, except the key bindings and the
         controller's - they have their own Restore default keys and Restore default buttons.
@@ -461,7 +450,6 @@ class ControlSchemePanel:
         params.set_tutorial_text_mode(params.DEFAULT_TUTORIAL_TEXT)
         params.set_menu_axis(params.DEFAULT_MENU_AXIS)
         params.set_remember_focus(params.DEFAULT_REMEMBER_FOCUS)
-        params.set_check_updates(params.DEFAULT_CHECK_UPDATES)
         params.set_menu_music_volume(params.DEFAULT_MENU_MUSIC_VOLUME)
         params.set_vibration_level(params.DEFAULT_VIBRATION)
         params.set_trigger_level(params.DEFAULT_TRIGGER_FEEL)

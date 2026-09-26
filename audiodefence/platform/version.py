@@ -7,8 +7,8 @@ The number is written in one place, the repository's `VERSION` file.  It holds t
 GitHub has it, so cutting a release is copy-and-paste rather than a conversion.  Run from source, the game
 reads that file, and makes it when there is none (see `today`).  A build carries the number inside the executable instead: `compiler.py` writes it into
 a small module, `BAKED_MODULE`, which PyInstaller compiles in.  Nothing beside the executable is read, so
-a file there cannot be edited to change what the game thinks it is, or deleted so that it never updates
-again - and the `VERSION` file an older build left beside the executable is ignored.
+a file there cannot be edited to change what the game thinks it is - and the `VERSION` file an older build
+left beside the executable is ignored.
 
 The format is `YY.MM.DD-XX`: the last two digits of the year, the month, the day, and the build number
 within that day, counting from 1.  `26.09.20-1` is the first release of the 20th of September 2026 and
@@ -16,8 +16,7 @@ within that day, counting from 1.  `26.09.20-1` is the first release of the 20th
 
 Comparison reads the digits and ignores everything between them, so dots and dashes compare alike and a
 shorter number is padded with zeroes - `26.09.20` is older than `26.09.20-1`.  A version that holds no
-digits at all is unknown, and an unknown version never asks the player to update: better to say nothing
-than to offer an update over a build we cannot place.
+digits at all is unknown, and compares as older than any known one.
 """
 from __future__ import annotations
 

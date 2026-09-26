@@ -15,7 +15,6 @@ NVDA, Prism, SAPI 5                VoiceOver, then the system voice (platform/ma
 ``%APPDATA%\\AudioDefence``         ``~/Library/Application Support/AudioDefence``
 ``SDL2.dll`` beside pygame         ``libSDL2-2.0.0.dylib`` in pygame's ``.dylibs``
 ``AudioDefence.exe``               ``AudioDefence.app``
-PowerShell swaps an update in      a shell script swaps it in (platform/updater.py)
 Alt+F4                             Cmd+Q
 =================================  ==========================================
 """

@@ -141,25 +141,10 @@ class MainMenuScreen(ViewControllerScreen):
         # has no Game Center
         Button('Info', (247, 283, 65, 41), parent=v, actions=[self.move_to_encyclopedia], name='#24')
         Button('Settings', (426, 281, 117, 41), parent=v, actions=[self.settings_button_touched], name='#79')
-        # PORT ADDITION: the App Store updated the phone game, so the two buttons below it have no
-        # counterpart in the nib.  This view is not a table, so the cursor follows the frames rather than
-        # the order they are made in: both sit below the nib's buttons, and Quit below the other, to read
-        # Play, Info, Settings, Check for updates, Quit.  Check for updates is here because the start-up
-        # check is silent when there is nothing to report, and a player who hears nothing cannot tell that
-        # from a thing that is not working.  Its hint is the version, which is the other thing a player
-        # asking about updates wants to know.  Run from source there is nothing to update from - a
-        # checkout moves with git - so the button is replaced by a line that says so.
-        from .. import paths
-        from ..platform import version
-        if paths.FROZEN:
-            updates = Button('Check for updates', (426, 330, 117, 41), parent=v,
-                             actions=[self.check_for_updates], name='Check for updates (port)')
-            updates.hint = 'Current version is %s.' % version.text()
-        else:
-            View('Updating is not available here. This is the source version, so it updates with git '
-                 'rather than from a release.', (426, 330, 117, 41), parent=v, name='No updates (port)')
-        # PORT ADDITION: iOS has no Quit.
-        Button('Quit', (426, 379, 117, 41), parent=v, actions=[self.quit_button_pressed], name='Quit (port)')
+        # PORT ADDITION: iOS has no Quit, so this button has no counterpart in the nib.  This view is not
+        # a table, so the cursor follows the frames rather than the order they are made in: it sits below
+        # the nib's buttons, to read Play, Info, Settings, Quit.
+        Button('Quit', (426, 330, 117, 41), parent=v, actions=[self.quit_button_pressed], name='Quit (port)')
         self.cheat_menu = Button('', (191, 240, 187, 33), parent=v, actions=[self.cheat_button_pressed],
                                  name='#148')
         self.cheat_menu.label = self.cheat_menu.text = 'CHEAT'
@@ -181,10 +166,6 @@ class MainMenuScreen(ViewControllerScreen):
         # versionNumberLabel is nil; ADTracker / Google Analytics calls are not ported
         RunLoop.main().add_observer(self, 'AD_MESSAGE_AudioRouteChanged', lambda *_: self.audio_route_changed())
         self.audio_route_changed()
-        # PORT ADDITION: the App Store updated the phone game; on Windows the main menu looks for a new
-        # build itself.  It runs on a worker thread and says nothing unless there is one to offer.
-        from .updates import check_on_start
-        check_on_start(self.host, self)
 
     def dealloc(self) -> None:
         RunLoop.main().remove_observer(self)
@@ -192,10 +173,6 @@ class MainMenuScreen(ViewControllerScreen):
 
     def quit_button_pressed(self) -> None:                # PORT ADDITION
         self.host.quit_game()
-
-    def check_for_updates(self) -> None:                  # PORT ADDITION
-        from .updates import check_now
-        check_now(self.host, self.speak)
 
     def armory_button_pressed(self) -> None:              # armoryButtonPressed: 0x100064fb0 (no button uses it)
         App.delegate().present_view_controller_named(self, 'ADArmoryViewController')

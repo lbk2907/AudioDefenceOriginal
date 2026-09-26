@@ -13,12 +13,12 @@ build.  Every other choice is one of these flags, which still work typed out:
     py compiler.py --dry-run      say what a build would do, build nothing
 
 A build makes one folder, dist\\AudioDefence, with the game's data copied in, and ends by zipping it into
-dist\\AudioDefence-Win-<VERSION>.zip, which is what a release's asset is and what the updater reads.
+dist\\AudioDefence-Win-<VERSION>.zip, which is what a release's asset is.
 
 On the Mac (uv run compiler.py) the same folder holds AudioDefence.app, with the game's data inside the app
-rather than beside it, and the zip is dist/AudioDefenceMac-<VERSION>.zip.  Both zips go on the same release;
-each build's updater takes its own.  The Mac's name has no dash so that it sorts after the Windows zip's
-(see ARCHIVE_PREFIXES in audiodefence/platform/host.py).
+rather than beside it, and the zip is dist/AudioDefenceMac-<VERSION>.zip.  Both zips go on the same
+release, named so that each platform's can be told from the other (see ARCHIVE_PREFIXES in
+audiodefence/platform/host.py).
 
 The release build - no flags at all - also files the changelog first: the lines under "unrelease:" go
 under this version's heading in the repository's changelog.txt, and the copy beside the executable opens
@@ -90,12 +90,11 @@ def build_version() -> str:
 
 
 def package(dest_root: str) -> str:
-    """Zip the built folder into the archive a release is made of, and that the updater reads.
+    """Zip the built folder into the archive a release is made of.
 
-    A zip rather than a rar because the updater opens it with Python's own zipfile, and reads single
-    files out of it over HTTP so that a small fix is a small download; nothing can do that with a rar
-    without shipping an extractor.  Everything sits under one folder inside the archive, so extracting it
-    gives a player a folder rather than a heap of files in their Downloads.
+    A zip rather than a rar because it is what Python's own zipfile makes and what every player can open
+    without installing an extractor.  Everything sits under one folder inside the archive, so extracting
+    it gives a player a folder rather than a heap of files in their Downloads.
     """
     version = build_version()
     archive = os.path.join(HERE, 'dist', host.archive_name(version))
@@ -119,7 +118,7 @@ def write_zip(dest_root: str, archive: str, top: str) -> int:
 
     An app's symbolic links go in as links, the way Finder's Archive Utility and ditto store and restore
     them, and each file's mode goes with it, execute bit and all; a link to a folder is not walked into, or
-    its files would go in twice.  tools/verify_updater.py makes its pretend releases with this too."""
+    its files would go in twice."""
     count = 0
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
         for dirpath, dirs, files in os.walk(dest_root):
@@ -262,7 +261,7 @@ def release_warnings(changelog: str) -> list:
     found = []
     if not build_version():
         found.append('there is no VERSION file, so the built game will not know what version it is '
-                     'and will never offer an update')
+                     'as its version')
     try:
         with open(changelog, encoding='utf-8') as fh:
             first = fh.readline().strip()
@@ -303,8 +302,8 @@ def problems_now() -> list[str]:
 
 # The version goes inside the build, not beside it: the repository's VERSION, written into a small module in
 # a temporary folder that PyInstaller compiles into the executable, where the game reads it
-# (audiodefence/platform/version.py).  A file beside the executable could be edited, or deleted - and a game
-# that had lost it would never offer another update.
+# (audiodefence/platform/version.py).  A file beside the executable could be edited, or deleted, and a
+# game that had lost it would not know what it is.
 def baked_module() -> str:
     from audiodefence.platform.version import BAKED_MODULE
     return BAKED_MODULE
@@ -550,7 +549,7 @@ def main(argv=None) -> int:
     say('running: python ' + ' '.join(cmd[1:]))
     if args.dry_run:
         say('the executable would carry version %s, from VERSION in the repository' % baked if baked else
-            'the executable would carry no version, because there is no VERSION file: it would never update')
+            'the executable would carry no version, because there is no VERSION file')
         if args.no_game:
             say("the game's data would not be copied.")
         else:

@@ -26,7 +26,7 @@ from .. import paths
 #: named now (user request), which means the value in an existing save.json is left where it is and ignored,
 #: and both start at their defaults once: the announcer on, the gain 1.0.
 SETTINGS_KEYS = frozenset({'buttonMode', 'controlScheme', 'sensivity', 'menuAxis', 'debugMapVisible',
-                          'tutorialText', 'rememberFocus', 'checkUpdates', 'skippedUpdate',
+                          'tutorialText', 'rememberFocus',
                           'menuMusicVolume', 'vibration', 'triggerEffects', 'keyNames',
                           'keyNamesController', 'speechOutput', 'fineHaptics', 'sapiVoice', 'sapiRate',
                           'sapiRateBoost',

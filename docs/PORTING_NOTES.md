@@ -843,7 +843,7 @@ The heading itself goes through the original scroll-view model: a 430-point `lin
 * PORT ADDITION: Settings -> Miscellaneous -> Reset all settings (`ControlSchemePanel.reset_all_settings`)
   puts every setting back to what its getter answers when nothing is stored - control scheme 1 (Gyro), the
   turn sensitivity, the button mode (Gesture, as a new profile is), the announcer on, tutorial text,
-  menu arrows, cursor memory, the update check, the menu music volume, the vibration and the trigger feel,
+  menu arrows, cursor memory, the menu music volume, the vibration and the trigger feel,
   the names in hints and tutorial, and the speech output - through the same setters the rows use.  The key
   bindings are left alone (Settings -> Keyboard has its own Restore default keys), and so are the
   controllers' buttons (Settings -> Joystick -> Restore default buttons).  The original has no reset; this
@@ -1064,37 +1064,12 @@ The heading itself goes through the original scroll-view model: a 430-point `lin
   own, so starting the challenge straight away built the new arena first and emptied it a tenth of a
   second afterwards: an arena with nothing in it, and a weapon that still fired.  The delay is
   `KILL_GAMEPLAY_CLEANUP`, named where `killGameplay` schedules it so the two cannot drift apart.
-* PORT ADDITION: the game updates itself, which on iOS was the App Store's job and has no counterpart in
-  the binary.  `platform/updater.py` asks GitHub for the newest release, compares its tag with the
-  version compiled into the executable (`compiler.py` writes the repository's `VERSION` into a module,
-  `version.BAKED_MODULE`, so no file beside the executable can change it or be lost), and offers what it
-  finds through the game's own alert rather than a Windows dialog, so a screen reader reads it like every
-  other screen.  Two things are worth knowing.
-  First, nothing a player owns is at risk by construction: every write the game makes goes to
-  `paths.user_dir()`, the installed folder is read-only while the game runs, and the updater will not
-  write outside the folder the executable is in - so replacing program files cannot touch a save.
-  Second, the download is a delta.  The release is one zip of about 155 MB of which nearly all is the
-  game's audio, identical in every build; `platform/remotezip.py` fetches the archive's central directory
-  over HTTP byte ranges and compares each member's CRC-32 with the file already installed, so a
-  code-only build downloads megabytes rather than the lot.  A server that will not serve ranges, or a
-  zip64 archive, falls back to fetching the whole asset.  The last step cannot happen from inside the
-  game, because a running program holds its own executable and DLLs open: the changed files are staged
-  under `%APPDATA%\AudioDefence\updates` with a backup of what they replace, and a PowerShell script
-  waits for the game to exit, copies them in, and starts it again - putting the backup back if the copy
-  fails.  PowerShell rather than a `.cmd` because a player's folder can have non-ASCII characters in it.
-  A download the player puts off is kept, marked ready, and offered again at the next start rather than
-  fetched twice; the sweep that clears staging folders leaves that one alone.  The offer has three answers:
-  Yes, No (asked again at the next start) and Skip this version (`GameParameters.skipped_update`: the check
-  at start-up passes that tag over, a newer one is offered, and Check for updates on the main menu, being
-  a question the player asked, still offers it).  The buttons carry hints, which UIAlertView's do not.
-  `tools/verify_updater.py` proves the whole path offline, against a local server that serves ranges and
-  a real hand-off, on a folder whose name has a space and Arabic in it.
 * PORT ADDITION: key names are spoken as the keys people call them.  pygame's names for the two Enter keys
   are "return" and "enter", which read out as "Return or Enter" and sound like one key said twice; they are
   "Enter" and "Numpad Enter" here, the arrows are "Left Arrow" and so on, and space is "Spacebar".
 * PORT ADDITION: the one defaults file is split three ways - `save.json` (progress: coins, diamonds,
   weapons, power-ups, missions, challenge data and the four stats blocks), `settings.json` (control scheme,
-  button mode, sensitivity, menu arrows, cursor memory, tutorial text, the update check, a skipped update,
+  button mode, sensitivity, menu arrows, cursor memory, tutorial text,
   the menu music volume, the announcer and the game's own gain) and `keys.json` (the key bindings, and the
   joystick later).  `announcer` and `masterGain` are the original's keys and went with the progress at
   first, being neither named in `SETTINGS_KEYS` nor new; they are settings, so they were named on 2026-09-24

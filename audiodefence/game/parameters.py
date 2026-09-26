@@ -187,19 +187,6 @@ class GameParameters:
         self.defaults.synchronize()
 
     #: PORT ADDITION: whether the main menu looks for a new build when it opens.  The App Store did this
-    #: for the phone game; on Windows the game has to ask.  On by default, because a player who never
-    #: opens Settings is exactly the one who would otherwise never hear that a fix exists.  The check is
-    #: one call to GitHub on a worker thread, and it says nothing at all unless there is an update.
-    DEFAULT_CHECK_UPDATES = True
-
-    def check_updates(self) -> bool:
-        value = self.defaults.object('checkUpdates')
-        return self.DEFAULT_CHECK_UPDATES if value is None else bool(value)
-
-    def set_check_updates(self, value: bool) -> None:
-        self.defaults.set_bool(bool(value), 'checkUpdates')
-        self.defaults.synchronize()
-
     #: PORT ADDITION: how loud the menu music is, in percent - the three sounds of the main_menu playlist
     #: (the theme, the game-over theme, which is the same music, and the opening sting), not the music
     #: or the ambience of a game.  The original has no volume of its own: the phone's buttons set all of
@@ -360,16 +347,6 @@ class GameParameters:
             return None
         from ..platform.pad import family
         return family(model)
-
-    #: The version the player answered "no" to, so the same build is not offered at every launch.  Asking
-    #: again for a *newer* build is right, so this stores which one was refused rather than a flag.
-    def skipped_update(self) -> str:
-        value = self.defaults.object('skippedUpdate')
-        return str(value) if value else ''
-
-    def set_skipped_update(self, tag: str) -> None:
-        self.defaults.set_object(str(tag), 'skippedUpdate')
-        self.defaults.synchronize()
 
     # --- roulette free roll ----------------------------------------------------------------------
     def set_last_good_news(self, unix_time: float) -> None:  # 0x1000a3f44

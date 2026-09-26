@@ -63,9 +63,9 @@ class RunLoop:
         """PORT ADDITION: hand work back from a worker thread, the way dispatch_async(main queue) does.
 
         Everything the original schedules runs on the main thread and the heap above is not locked, so a
-        thread cannot push onto it.  The updater is the one thing here that waits on a network, which
-        cannot be done on the thread drawing the game, so it posts its results through this queue and
-        ``run_once`` drains them where every other callback already runs."""
+        thread cannot push onto it.  Work that cannot be done on the thread drawing the game - anything
+        that waits - posts its results through this queue instead, and ``run_once`` drains them where
+        every other callback already runs."""
         self._inbox.append(fn)                            # deque.append is atomic under the GIL
 
     @staticmethod

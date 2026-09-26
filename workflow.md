@@ -49,13 +49,10 @@ file, **at the end of that block** - it reads in the order things were done.
 * Never commit what the build leaves behind (`build/`, `dist/`, `*.spec` are ignored); the game's own data
   in `game/` *is* committed, so a clone has everything.
 
-## Two things that break quietly
+## One thing that breaks quietly
 
-* `audiodefence/platform/updater.py` holds `REPOSITORY`, the repository the game updates itself from.  It
-  belongs to the repository the build is made in.
-* The release zips' names decide which one an older build downloads: `AudioDefence-Win-<version>.zip` must
-  sort before `AudioDefenceMac-<version>.zip`, because builds from before the Mac port take the first zip
-  they find.  Let the compiler name them.
+* The release zips' names tell the two platforms' builds apart: `AudioDefence-Win-<version>.zip` and
+  `AudioDefenceMac-<version>.zip` go on the same release.  Let the compiler name them.
 
 ## Testing
 

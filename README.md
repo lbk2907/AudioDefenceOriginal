@@ -120,9 +120,7 @@ There are two ways to play, and only one of them needs Python.
 the executable — nothing to install, no Python, 64-bit Windows and a pair of
 headphones. `readme.html` and `changelog.txt` are in the same folder.
 
-You only have to do that once. From then on the game tells you when a new
-version is out and installs it for you, downloading only the files that
-changed — see [Updates](#updates) below.
+You only have to do that once.
 
 **On the Mac** it is the same folder with `AudioDefence.app` in it instead, in
 `AudioDefenceMac-<version>.zip` on the same release — see
@@ -198,7 +196,7 @@ Settings, saves and the log live in `%APPDATA%\AudioDefence` (on the Mac,
 | file | what is in it |
 |---|---|
 | `save.json` | progress: coins, diamonds, weapons, power-ups, missions, challenges, statistics |
-| `settings.json` | control scheme, button mode, turn sensitivity, menu arrows, cursor memory, tutorial text, the announcer, the game volume, menu music volume, the update check and a version you skipped, how strong the vibration and the trigger feel are, and whether hints name keys or controller buttons, and which controller's, and the speech output and SAPI 5's voice, rate, rate boost, pitch and volume |
+| `settings.json` | control scheme, button mode, turn sensitivity, menu arrows, cursor memory, tutorial text, the announcer, the game volume, menu music volume, how strong the vibration and the trigger feel are, and whether hints name keys or controller buttons, and which controller's, and the speech output and SAPI 5's voice, rate, rate boost, pitch and volume |
 | `keys.json` | the key bindings, and each kind of controller's, by its name |
 
 Deleting the folder starts a fresh profile — the first run then begins on Gyro
@@ -230,8 +228,8 @@ Settings → Privacy & Security**, and choose **Open Anyway** for AudioDefence
 near the bottom. You only do that once. It runs on Apple silicon Macs.
 
 Move the folder before you first open the game. An app opened where it was
-downloaded is run by macOS from a temporary copy, and from there it cannot
-update itself; it tells you so if you ask it to.
+downloaded is run by macOS from a temporary copy, which is not where it should
+live.
 
 ### VoiceOver
 
@@ -283,11 +281,10 @@ bits so Finder unzips a working app. The game's data goes inside the app, at
 `Contents/Resources/game`, less the original's iOS executable and its code
 signature, and the app is signed again, ad hoc, once it is complete.
 
-Put the Mac zip on the same release as the Windows one, in either order. Each
-build's updater takes the zip made for it, by its name. Keep the names exactly
-as the compiler makes them. GitHub lists a release's files alphabetically,
-not in the order they were uploaded, and a Windows build from before the Mac
-port takes the first zip it finds. `AudioDefence-Win-` sorts before
+Put the Mac zip on the same release as the Windows one, in either order. Keep
+the names exactly as the compiler makes them, so each platform's zip can be
+told from the other. GitHub lists a release's files alphabetically,
+not in the order they were uploaded. `AudioDefence-Win-` sorts before
 `AudioDefenceMac-` because a dash comes before any letter. A Mac zip called
 `AudioDefence-Mac-` would come first, and those older Windows builds would
 install it over themselves.
@@ -522,64 +519,13 @@ time the completed screen shows, so a run you lost can be compared with one you
 won, and so the copy is not handing you figures you were never told. The tip
 follows them.
 
-## Updates
-
-The game keeps itself up to date. When the main menu opens it asks GitHub
-whether there is a newer build, and says nothing at all unless there is one —
-if there is, it tells you the version and gives you three answers. **Yes**
-downloads it. **No** means not now: the next time the game starts, it asks
-again. **Skip this version** means not this one: that build is not offered
-again when the game starts, though a later one still will be.
-
-Because that check is silent when there is nothing to report, the main menu
-also has a **Check for updates** button, between Settings and Quit. It answers
-either way: it either offers the new version or tells you the one you are on.
-It offers a version you skipped as well, since you asked — which is how to
-change your mind.
-
-Say yes and it downloads, then offers to restart. It has to close to put the
-new files in place and starts itself again afterwards. **Your progress is never
-at risk**: saves, settings and key bindings live in `%APPDATA%\AudioDefence`
-(`~/Library/Application Support/AudioDefence` on the Mac), and an update only
-ever replaces the game's own program files.
-
-**An update downloads only what changed.** The release is around 155 MB, and
-nearly all of it is the game's audio, which is the same in every build. The
-updater reads the archive's index over the network and compares it with what
-you already have, file by file, so a build that only fixes code is a download
-of a few megabytes rather than the whole game again.
-
-If you would rather it did not look, **Settings → Miscellaneous → Check for
-updates when the game starts** switches it off. The main menu's Check for
-updates button asks whenever you like, and its hint is the version you are on.
-Run from source, that button is a line saying updating is not available — a
-checkout is updated with git, not from a release. Answering "Not yet" to a
-restart keeps the download:
-the next time you start the game it offers to finish the job rather than
-fetching anything a second time.
-
-Turning is the one place a phone cannot be copied. The original turns with the
-gyroscope, a finger drag or a tilt; here all three are the turn keys held down,
-and the only difference left is how fast they turn:
-
-| Settings → Aiming | turn speed at the default sensitivity |
-|---|---|
-| Gyro | the slowest, about 110 degrees a second |
-| Swipe | in between, about 160 |
-| Tilt | the fastest, about 190 |
-
-**Turn sensitivity** — 0.5 to 3, Enter for the next value, Shift+Enter for the
-previous — scales all three in proportion, so it is the dial to reach for
-first; the three rows only choose where it starts from. All three are kept
-because the tutorial has a separate announcer clip for each.
-
 ## How faithful this is
 
 Faithful here means the game itself. What you play is the original's, and it
 stays that way: the waves, the zombies, the weapons and what they cost, the
 challenges, the sounds, and the quirks that shape how it plays. The port also
-adds things, and will go on adding them — some around the game, like the updater
-or Copy results, and in time some inside it, like new tarot cards or another
+adds things, and will go on adding them — some around the game, like Copy
+results, and in time some inside it, like new tarot cards or another
 arena. Whatever is added follows the original's concept and sits beside what the
 original has, rather than changing it. You can hear the line in Settings: the
 original's own rows work as they always did, and only the rows the port added
@@ -594,7 +540,7 @@ can be checked against the binary or put back. Listed below are the ones you wou
 rest are internal — analytics that only log locally, a sanity check that only printed, an undefined return
 value nothing reads.
 
-There are **126 divergences** and **15 original quirks kept on purpose** in the notes, of which 73 are
+There are **125 divergences** and **15 original quirks kept on purpose** in the notes, of which 72 are
 listed here.
 
 ### 1. Windows standing in for a phone
@@ -751,9 +697,6 @@ Faults in the game's own logic, not in how it describes itself. Each was read ag
 Things the original never had. Each one sits beside the original's own screens and rows rather than
 replacing them.
 
-- **Check for updates**, on the main menu, and a quiet check each time the game starts, which you can
-  switch off in **Settings → Miscellaneous**. An update downloads only the files that changed. See
-  [Updates](#updates).
 - **Copy results**, on the screen at the end of a run, puts the results on the clipboard. See
   [Sharing a result](#sharing-a-result).
 - **Restart challenge**, on the pause menu during a challenge, so a challenge you have already lost does not
@@ -878,7 +821,7 @@ went with it.
         s3d/            the S3D audio engine on OpenAL Soft: HRTF, playlists,
                         streaming decoder, the original Freeverb reverb bus
         platform/       run loop, timers, notifications, user defaults, C rand,
-                        speech, the key map, the updater and its remote-zip reader;
+                        speech, the key map;
                         host.py, every choice between Windows and the Mac, and
                         macspeech.py, VoiceOver and the Mac's system voice
         game/           gameplay: enemies, bricks, weapons, power-ups, missions,
@@ -991,7 +934,6 @@ it — and compare side by side.
     py tools/listing.py "ADWeapon fire" 0x100 0x200   a range of one listing
     py tools/nib_layout.py --all ADMainMenuViewController   a screen's frames and labels
     py tools/verify_stats.py                          every weapon and enemy vs the plists
-    py tools/verify_updater.py                        the updater, end to end, offline
 
 The digests are condensed and sometimes drop code that matters — when a branch
 does not add up, read the `.s` listing for the same function. Annotation
@@ -1092,15 +1034,13 @@ is no cross-compiling to another system.
 | `--clean` | empty both of PyInstaller's working places first — this project's `build\` folder and the shared cache in `%LOCALAPPDATA%\pyinstaller` — when a rebuild behaves oddly. `dist\` is untouched, and so is everything in the repository |
 | `--test` | run the result for ten seconds afterwards and read its log: that it found the game data, that the game's own HRTF is in use, and that it ended without a traceback |
 | `--dry-run` | print what would happen, build nothing — including every file that would land beside the executable |
-| `--no-package` | do not make the zip. A build otherwise ends by packing `dist\AudioDefence` into `dist\AudioDefence-Win-<version>.zip`, which is what a release's asset is and what the updater reads, warning first if `VERSION` is missing or `changelog.txt` still starts with `unrelease:` |
+| `--no-package` | do not make the zip. A build otherwise ends by packing `dist\AudioDefence` into `dist\AudioDefence-Win-<version>.zip`, which is what a release's asset is, warning first if `VERSION` is missing or `changelog.txt` still starts with `unrelease:` |
 
 ### Cutting a release
 
-The archive has to be a **zip**, not a rar: the updater opens it with Python's
-own `zipfile` and reads single files out of it over HTTP, which is what makes a
-small fix a small download, and nothing can do either with a rar without
-shipping an extractor. Every build makes it, unless you choose the build without
-the zip (`--no-package`).
+The archive is a **zip**, not a rar: it is what Python's own `zipfile` makes
+and what every player can open without installing an extractor. Every build
+makes it, unless you choose the build without the zip (`--no-package`).
 
 New changes go in `changelog.txt` under one heading at the top, `unrelease:`,
 one line each. You never rename that heading yourself — the build files it.
@@ -1150,13 +1090,11 @@ The compiler never works the number out: it follows whatever you wrote in
 The build carries the number inside the executable rather than beside it: the
 compiler reads `VERSION` from the repository and compiles it in. So there is no
 `VERSION` file in a built game's folder, and nothing a player edits or deletes
-there can change what the game thinks it is, or stop it from updating. A
-`VERSION` file an older build left beside the executable is ignored. You only
-ever change the number in the repository's `VERSION`. A build made with an
-option while the repository has no `VERSION` file carries no number and never
-offers an update, which is the one way to ship something that cannot be
-updated afterwards; the release build never does this, because it starts the
-file first.
+there can change what the game thinks it is. A `VERSION` file an older build
+left beside the executable is ignored. You only ever change the number in the
+repository's `VERSION`. A build made with an option while the repository has no
+`VERSION` file carries no number at all; the release build never does this,
+because it starts the file first.
 Run from source, the game does the same as a release build when there is no
 `VERSION` file: it makes one, at today's first release.
 

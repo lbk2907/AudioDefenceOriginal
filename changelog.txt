@@ -39,10 +39,6 @@ On the screen after a challenge you completed, the Retry button is read first.
 In Gesture mode, the tutorial says you can shake the controller for melee, when yours can be shaken.
 
 26.09.22-1:
-The game checks for updates by itself and downloads only the files that changed. Your progress, settings and keys are untouched.
-The main menu has a Check for updates button, which also tells you which version you are on.
-No to an update means not now; a new Skip this version button stops that one being offered.
-The game keeps its version number inside itself, so a missing VERSION file can no longer stop it updating.
 The pause menu has a Restart challenge button.
 The screen at the end of a run has a Copy results button, which puts your results on the clipboard.
 Those screens read one result per line, and after a failed challenge they read your kills, accuracy and time.
