@@ -16,6 +16,23 @@ It is playable from the logo to the last challenge. If you find something that
 sounds wrong, say so — most of what is fixed in here was found by someone
 playing it and describing what they heard.
 
+## Which copy this is
+
+**This repository holds the original port, and keeps it that way.** What is here
+is meant to play as *Audio Defence: Zombie Arena* played — the waves, the
+zombies, the weapons and what they cost, the sounds, and the quirks, down to the
+bugs the original had. A change belongs here when it brings the game closer to
+the original, or when it makes the original reachable through a screen reader
+and a keyboard. A change that adds something the original never had does not.
+
+Work that adds to the game happens in
+[AudioDefence-Windows](https://github.com/lbk2907/AudioDefence-Windows), which
+this copy was taken from. The two share everything up to the point they parted;
+from there, that one grows and this one does not.
+
+This build also does not update itself — there is nothing here that looks for a
+newer version, and nothing that downloads one.
+
 ## Accessibility
 
 The port is built for a screen reader, not adapted to one afterwards. It speaks
@@ -523,11 +540,12 @@ follows them.
 
 Faithful here means the game itself. What you play is the original's, and it
 stays that way: the waves, the zombies, the weapons and what they cost, the
-challenges, the sounds, and the quirks that shape how it plays. The port also
-adds things, and will go on adding them — some around the game, like Copy
-results, and in time some inside it, like new tarot cards or another
-arena. Whatever is added follows the original's concept and sits beside what the
-original has, rather than changing it. You can hear the line in Settings: the
+challenges, the sounds, and the quirks that shape how it plays. The port does
+add things around the game — Copy results, the settings a desktop needs, the
+speech — and those are here; what it will *not* grow is anything inside the game
+the original never had. Whatever was added follows the original's concept and
+sits beside what the original has, rather than changing it. You can hear the
+line in Settings: the
 original's own rows work as they always did, and only the rows the port added
 step through their values with Enter and Shift+Enter. The additions are listed
 together under *New in the port*, apart from the changes to what the original
