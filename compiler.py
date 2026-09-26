@@ -13,10 +13,10 @@ build.  Every other choice is one of these flags, which still work typed out:
     py compiler.py --dry-run      say what a build would do, build nothing
 
 A build makes one folder, dist\\AudioDefence, with the game's data copied in, and ends by zipping it into
-dist\\AudioDefence-Win-<VERSION>.zip, which is what a release's asset is.
+dist\\AudioDefenceOriginal-Win-<VERSION>.zip, which is what a release's asset is.
 
-On the Mac (uv run compiler.py) the same folder holds AudioDefence.app, with the game's data inside the app
-rather than beside it, and the zip is dist/AudioDefenceMac-<VERSION>.zip.  Both zips go on the same
+On the Mac (uv run compiler.py) the same folder holds AudioDefenceOriginal.app, with the game's data inside the app
+rather than beside it, and the zip is dist/AudioDefenceOriginalMac-<VERSION>.zip.  Both zips go on the same
 release, named so that each platform's can be told from the other (see ARCHIVE_PREFIXES in
 audiodefence/platform/host.py).
 
@@ -45,7 +45,9 @@ import zipfile
 from audiodefence.platform import host
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-NAME = 'AudioDefence'
+#: what the build is called: this copy's own name, so its folder, its executable and its zips do not
+#: collide with a build of the repository it was taken from when a player has both.
+NAME = 'AudioDefenceOriginal'
 ENTRY = 'AudioDefence.py'
 
 PLAY_PACKAGES = (('pygame', 'pygame-ce'), ('numpy', 'numpy'), ('av', 'av'), ('comtypes', 'comtypes'),
@@ -367,7 +369,7 @@ def output_dir(args) -> str:
 
 
 def executable(dest_root: str, args) -> str:
-    """The program a build makes: AudioDefence.exe, or the Mac app's own executable inside it."""
+    """The program a build makes: AudioDefenceOriginal.exe, or the Mac app's own executable inside it."""
     if host.MAC:
         if args.console:                                  # no .app: a plain program in the folder
             return os.path.join(dest_root, NAME)
@@ -376,8 +378,8 @@ def executable(dest_root: str, args) -> str:
 
 
 def arrange_mac_app(dest_root: str) -> None:
-    """PyInstaller leaves the app beside the folder it was made from, dist/AudioDefence.app next to
-    dist/AudioDefence; the app is the whole game, so the folder is replaced by one holding just the app,
+    """PyInstaller leaves the app beside the folder it was made from, dist/AudioDefenceOriginal.app next to
+    dist/AudioDefenceOriginal; the app is the whole game, so the folder is replaced by one holding just the app,
     which the game's data, the side files and the zip then go around as they do on Windows."""
     made = os.path.join(HERE, 'dist', NAME + '.app')
     shutil.rmtree(dest_root, ignore_errors=True)

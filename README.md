@@ -133,14 +133,14 @@ if they want it taken down it comes down.
 There are two ways to play, and only one of them needs Python.
 
 **The built game** is on this repository's Releases page: a folder with
-`AudioDefence.exe` in it, and the game's own data beside it. Unzip it and run
+`AudioDefenceOriginal.exe` in it, and the game's own data beside it. Unzip it and run
 the executable — nothing to install, no Python, 64-bit Windows and a pair of
 headphones. `readme.html` and `changelog.txt` are in the same folder.
 
 You only have to do that once.
 
-**On the Mac** it is the same folder with `AudioDefence.app` in it instead, in
-`AudioDefenceMac-<version>.zip` on the same release — see
+**On the Mac** it is the same folder with `AudioDefenceOriginal.app` in it instead, in
+`AudioDefenceOriginalMac-<version>.zip` on the same release — see
 [On the Mac](#on-the-mac).
 
 **From source** is everything below: the repository as it stands, run with the
@@ -228,21 +228,21 @@ app. Nothing in the game itself asks which it is on:
 
 | | Windows | Mac |
 |---|---|---|
-| the game | `AudioDefence.exe`, with `game/` beside it | `AudioDefence.app`, with the game's data inside it |
+| the game | `AudioDefenceOriginal.exe`, with `game/` beside it | `AudioDefenceOriginal.app`, with the game's data inside it |
 | speech | NVDA, the other screen readers through Prism, SAPI 5 | VoiceOver, then the system voice |
 | settings, saves, log | `%APPDATA%\AudioDefenceOriginal` | `~/Library/Application Support/AudioDefenceOriginal` |
 | OpenAL Soft | `vendor/openal/soft_oal.dll` | `vendor/openal-mac/libopenal.dylib` |
-| release zip | `AudioDefence-Win-<version>.zip` | `AudioDefenceMac-<version>.zip` |
+| release zip | `AudioDefenceOriginal-Win-<version>.zip` | `AudioDefenceOriginalMac-<version>.zip` |
 | leaving the game | Alt+F4, or Quit | Cmd+Q, or Quit |
 
 ### Playing the built game
 
-Unzip `AudioDefenceMac-<version>.zip` and move the `AudioDefence` folder
+Unzip `AudioDefenceOriginalMac-<version>.zip` and move the `AudioDefence` folder
 somewhere of your own — your Applications folder will do — then open
-`AudioDefence.app` in it. The app is not signed with an Apple developer
+`AudioDefenceOriginal.app` in it. The app is not signed with an Apple developer
 certificate, so the first time macOS refuses to open it: open **System
-Settings → Privacy & Security**, and choose **Open Anyway** for AudioDefence
-near the bottom. You only do that once. It runs on Apple silicon Macs.
+Settings → Privacy & Security**, and choose **Open Anyway** for
+AudioDefenceOriginal near the bottom. You only do that once. It runs on Apple silicon Macs.
 
 Move the folder before you first open the game. An app opened where it was
 downloaded is run by macOS from a temporary copy, which is not where it should
@@ -255,7 +255,7 @@ own rate, and a braille display shows the same lines. It speaks to VoiceOver
 by AppleScript, which VoiceOver allows only when asked to: in **VoiceOver
 Utility → General**, tick **Allow VoiceOver to be controlled with
 AppleScript**. The first time the game speaks, macOS asks whether
-AudioDefence may control VoiceOver — say OK. Until both are done the game
+AudioDefenceOriginal may control VoiceOver — say OK. Until both are done the game
 still speaks, as announcements VoiceOver reads while the game's window has
 focus, but they can be cut short by VoiceOver's own speech.
 
@@ -291,20 +291,17 @@ three, `pyobjc-framework-cocoa` takes the place of `comtypes` and
 
 or double-click `compiler.command`. It is the same compiler with the same
 menu and flags, less the one-file build, which on a Mac would unpack itself
-on every launch. It leaves `dist/AudioDefence` holding `AudioDefence.app`,
+on every launch. It leaves `dist/AudioDefenceOriginal` holding `AudioDefenceOriginal.app`,
 readme.html, changelog.txt and license.txt, and zips it into
-`dist/AudioDefenceMac-<version>.zip`, keeping the app's links and execute
+`dist/AudioDefenceOriginalMac-<version>.zip`, keeping the app's links and execute
 bits so Finder unzips a working app. The game's data goes inside the app, at
 `Contents/Resources/game`, less the original's iOS executable and its code
 signature, and the app is signed again, ad hoc, once it is complete.
 
 Put the Mac zip on the same release as the Windows one, in either order. Keep
 the names exactly as the compiler makes them, so each platform's zip can be
-told from the other. GitHub lists a release's files alphabetically,
-not in the order they were uploaded. `AudioDefence-Win-` sorts before
-`AudioDefenceMac-` because a dash comes before any letter. A Mac zip called
-`AudioDefence-Mac-` would come first, and those older Windows builds would
-install it over themselves.
+told from the other — and so that neither shares a name with a release of the
+repository this copy was taken from.
 
 `vendor/openal-mac/libopenal.dylib` is OpenAL Soft 1.25.2 built for arm64,
 the same version as the Windows DLL. `tools/build_openal_mac.sh` rebuilds it
@@ -1027,7 +1024,7 @@ can hear how it went before it closes.
 
 That is the whole build. The script checks what it needs, runs PyInstaller with
 the right arguments, copies the game's data next to the executable and says
-where the result is: `dist\AudioDefence\AudioDefence.exe`, in a folder that
+where the result is: `dist\AudioDefence\AudioDefenceOriginal.exe`, in a folder that
 runs on a machine with no Python on it at all.
 
 Each choice is one of the options in the table below, and they still work typed
@@ -1052,7 +1049,7 @@ is no cross-compiling to another system.
 | `--clean` | empty both of PyInstaller's working places first — this project's `build\` folder and the shared cache in `%LOCALAPPDATA%\pyinstaller` — when a rebuild behaves oddly. `dist\` is untouched, and so is everything in the repository |
 | `--test` | run the result for ten seconds afterwards and read its log: that it found the game data, that the game's own HRTF is in use, and that it ended without a traceback |
 | `--dry-run` | print what would happen, build nothing — including every file that would land beside the executable |
-| `--no-package` | do not make the zip. A build otherwise ends by packing `dist\AudioDefence` into `dist\AudioDefence-Win-<version>.zip`, which is what a release's asset is, warning first if `VERSION` is missing or `changelog.txt` still starts with `unrelease:` |
+| `--no-package` | do not make the zip. A build otherwise ends by packing `dist\AudioDefence` into `dist\AudioDefenceOriginal-Win-<version>.zip`, which is what a release's asset is, warning first if `VERSION` is missing or `changelog.txt` still starts with `unrelease:` |
 
 ### Cutting a release
 
@@ -1069,7 +1066,7 @@ In order:
 - commit and push what it tells you changed — `changelog.txt`, and `VERSION`
   if it had to make one. Every build ends by saying whether there is anything
   to commit.
-- tag the release `26.09.21-1` and upload `dist\AudioDefence-Win-26.09.21-1.zip`
+- tag the release `26.09.21-1` and upload `dist\AudioDefenceOriginal-Win-26.09.21-1.zip`
 
 The release build — choice 1, or `py compiler.py` with no options from a
 script — does three things to the repository before it copies anything:
@@ -1138,7 +1135,7 @@ not — and `game/` is the game's audio: the 918 sound files under `game/sounds/
 is Somethin' Else's recording, not the port's, and a build carries them with
 it.
 
-The script copies `game/` **next to the executable** — `AudioDefence.exe` and
+The script copies `game/` **next to the executable** — `AudioDefenceOriginal.exe` and
 `game/` side by side — which is where `audiodefence/paths.py` looks when
 frozen, and `--game PATH` (`AUDIODEFENCE_GAME`) still overrides it. Build with
 `--no-game` and you get the port alone: no sounds, silent until it is pointed
@@ -1168,7 +1165,7 @@ executable)` and not `(missing)`; that `game HRTF audiodefence_ircam1050 not in
 use` does not appear, which would mean `assets/hrtf` never made it into the
 bundle and OpenAL has quietly substituted its own; and that nothing ended in a
 traceback. The same run by hand is
-`dist\AudioDefence\AudioDefence.exe --exit-after 10 --log-level debug`.
+`dist\AudioDefence\AudioDefenceOriginal.exe --exit-after 10 --log-level debug`.
 
 What no script can check for you is the sound. Start it normally and listen to
 the main menu — once with NVDA, and once with NVDA closed so that SAPI is
@@ -1206,7 +1203,7 @@ all along.
 ### Afterwards
 
 `build/` is PyInstaller's scratch folder, `dist/` is its output and
-`AudioDefence.spec` is the file it writes from the arguments above; the script
+`AudioDefenceOriginal.spec` is the file it writes from the arguments above; the script
 regenerates all three, and none of them belongs in the repository. The reverse
 engineering lives in `analysis/` precisely so that `build/` stays free.
 

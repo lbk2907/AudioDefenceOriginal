@@ -14,7 +14,7 @@ Windows                              Mac
 NVDA, Prism, SAPI 5                  VoiceOver, then the system voice (platform/macspeech.py)
 ``%APPDATA%\\AudioDefenceOriginal``  ``~/Library/Application Support/AudioDefenceOriginal``
 ``SDL2.dll`` beside pygame           ``libSDL2-2.0.0.dylib`` in pygame's ``.dylibs``
-``AudioDefence.exe``                 ``AudioDefence.app``
+``AudioDefenceOriginal.exe``                 ``AudioDefenceOriginal.app``
 Alt+F4                               Cmd+Q
 ===================================  ============================================================
 """
@@ -29,17 +29,15 @@ MAC = sys.platform == 'darwin'
 PORT_NAME = 'Mac' if MAC else 'Windows'
 #: the release archive's platform tag
 ARCHIVE_TAG = 'Mac' if MAC else 'Win'
-#: what each platform's release zip is called, before its version.  The Mac's has no dash after
-#: AudioDefence, and has to stay that way: GitHub's API lists a release's assets by name, ignoring case,
-#: whatever order they were uploaded in, and every Windows build from before the Mac port takes the first
-#: zip it is given.  A dash sorts before any letter, so 'AudioDefence-Win-' comes before 'AudioDefenceMac-'.
-#: 'AudioDefence-Mac-' would come first, and an old Windows build would unpack the Mac app into its folder
-#: and delete everything in _internal and game as files the new build had dropped.
-ARCHIVE_PREFIXES = {'Win': 'AudioDefence-Win-', 'Mac': 'AudioDefenceMac-'}
+#: what each platform's release zip is called, before its version.  The name carries this copy's own, so
+#: that a player who has a build of the repository this was taken from as well can keep both: the two
+#: releases' zips do not share a name, and neither do the folders they unpack to.
+ARCHIVE_PREFIXES = {'Win': 'AudioDefenceOriginal-Win-', 'Mac': 'AudioDefenceOriginalMac-'}
 
 
 def archive_name(version: str = '', tag: str = ARCHIVE_TAG) -> str:
-    """The release zip's name: 'AudioDefence-Win-26.09.22-1.zip', or 'AudioDefenceMac-26.09.22-1.zip'."""
+    """The release zip's name: 'AudioDefenceOriginal-Win-26.09.22-1.zip', or
+    'AudioDefenceOriginalMac-26.09.22-1.zip'."""
     prefix = ARCHIVE_PREFIXES[tag]
     return (prefix + version if version else prefix.rstrip('-')) + '.zip'
 

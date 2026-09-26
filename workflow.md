@@ -51,8 +51,8 @@ file, **at the end of that block** - it reads in the order things were done.
 
 ## One thing that breaks quietly
 
-* The release zips' names tell the two platforms' builds apart: `AudioDefence-Win-<version>.zip` and
-  `AudioDefenceMac-<version>.zip` go on the same release.  Let the compiler name them.
+* The release zips' names tell the two platforms' builds apart: `AudioDefenceOriginal-Win-<version>.zip` and
+  `AudioDefenceOriginalMac-<version>.zip` go on the same release.  Let the compiler name them.
 
 ## Testing
 

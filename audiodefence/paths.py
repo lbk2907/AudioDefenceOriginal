@@ -8,7 +8,7 @@ has, so nothing is copied or converted.  The bundle's contents sit in ``game/`` 
 command line) points somewhere else - another copy of the bundle, or a folder holding one.  In a PyInstaller
 build the code, ``assets/`` and ``vendor/`` come out of the unpacked bundle, while ``game/`` is the copy
 sitting next to the executable: the game's own files are not something a build can carry.  The Mac build
-is the exception: its ``game/`` goes inside ``AudioDefence.app`` (``Contents/Resources/game``), because
+is the exception: its ``game/`` goes inside ``AudioDefenceOriginal.app`` (``Contents/Resources/game``), because
 macOS may run a downloaded app from a private copy of the bundle alone (App Translocation), where nothing
 beside it can be seen.
 """
@@ -23,7 +23,7 @@ FROZEN = getattr(sys, 'frozen', False)
 if FROZEN:
     ROOT = getattr(sys, '_MEIPASS', os.path.dirname(sys.executable))        # what PyInstaller bundled
     EXE_DIR = os.path.dirname(os.path.abspath(sys.executable))              # what sits beside the .exe
-    if host.MAC and os.path.basename(EXE_DIR) == 'MacOS':                   # .../AudioDefence.app/Contents/MacOS
+    if host.MAC and os.path.basename(EXE_DIR) == 'MacOS':                   # .../AudioDefenceOriginal.app/Contents/MacOS
         APP_BUNDLE = os.path.dirname(os.path.dirname(EXE_DIR))
         EXE_DIR = os.path.dirname(APP_BUNDLE)                               # what sits beside the .app
 else:
