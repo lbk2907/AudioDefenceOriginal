@@ -26,7 +26,7 @@ the original, or when it makes the original reachable through a screen reader
 and a keyboard. A change that adds something the original never had does not.
 
 Work that adds to the game happens in
-[AudioDefence-Windows](https://github.com/lbk2907/AudioDefence-Windows), which
+[AudioDefence](https://github.com/lbk2907/AudioDefence), which
 this copy was taken from. The two share everything up to the point they parted;
 from there, that one grows and this one does not.
 
