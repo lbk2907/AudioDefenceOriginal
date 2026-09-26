@@ -67,7 +67,7 @@ def main(argv=None) -> int:
     from .platform.pad import Pads, set_hints
     set_hints()                                         # before SDL's joystick layer starts, in pygame.init()
     pygame.init()
-    pygame.display.set_caption('Audio Defence (original port)')
+    pygame.display.set_caption('Audio Defence - original port')
     pygame.display.set_mode((640, 480))
     Pads.shared().start()                               # PORT ADDITION: game controllers
     Pads.shared().speak = lambda text: Speech.shared().speak(text, False)
