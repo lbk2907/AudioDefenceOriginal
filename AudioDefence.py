@@ -1,4 +1,4 @@
-"""Start Audio Defence (the Windows and Mac port).
+"""Start AudioDefenceOriginal (the Windows and Mac port of the original).
 
 Double-click this file, or run:  py AudioDefence.py  (on the Mac:  uv run AudioDefence.py)
 Options such as --endless or --challenge tutorial_1 are passed through (see the README).
@@ -33,7 +33,7 @@ def _report_missing(package: str) -> None:
     """Say which package is missing and how to get it, rather than handing over a traceback."""
     mac = sys.platform == 'darwin'
     how = MAC_INSTALL if mac else INSTALL
-    lines = ['Audio Defence could not start: the %s package is not installed.' % package, '',
+    lines = ['AudioDefenceOriginal could not start: the %s package is not installed.' % package, '',
              'This is the source version, which needs Python and a few packages.', '']
     lines += (['Run:  %s' % how] if mac else ['Install them with:', '', '    %s' % how])
     lines += ['', 'Or download the ready-made build from the releases page, which needs none of this.']
@@ -43,7 +43,7 @@ def _report_missing(package: str) -> None:
         print(text)
     try:
         from audiodefence.platform.speech import Speech
-        Speech.shared().speak('Audio Defence could not start. The %s package is not installed. This is the '
+        Speech.shared().speak('AudioDefenceOriginal could not start. The %s package is not installed. This is '
                               'source version: install what it needs with %s, or download the ready-made '
                               'build from the releases page.' % (package, how))
     except Exception:
@@ -77,7 +77,7 @@ def _report_failure(text: str) -> None:
     try:
         from audiodefence.platform import host
         from audiodefence.platform.speech import Speech
-        Speech.shared().speak('Audio Defence could not start. The error is %s.'
+        Speech.shared().speak('AudioDefenceOriginal could not start. The error is %s.'
                               % ('shown in the console window' if console else
                                  'in crash.txt, ' + host.user_dir_hint() if path else
                                  'not written down'))

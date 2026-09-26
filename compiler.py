@@ -1,4 +1,4 @@
-"""Build Audio Defence into an executable with PyInstaller.
+"""Build AudioDefenceOriginal into an executable with PyInstaller.
 
 Double-click this file, or run py compiler.py with nothing after it, and it offers a numbered menu of
 builds, then waits for Enter at the end so you can hear how it went.  Its first choice is the release
@@ -399,11 +399,11 @@ def finish_mac_app(dest_root: str, version: str) -> bool:
     with open(info, 'rb') as fh:
         plist = plistlib.load(fh)
     plist['CFBundleIdentifier'] = BUNDLE_ID
-    plist['CFBundleDisplayName'] = 'Audio Defence'
+    plist['CFBundleDisplayName'] = 'AudioDefenceOriginal'
     plist['CFBundleShortVersionString'] = plist['CFBundleVersion'] = version or '0.0.0'
     plist['NSHighResolutionCapable'] = True
     # macOS asks the player once whether the game may speak through VoiceOver; this is what it says why
-    plist['NSAppleEventsUsageDescription'] = 'Audio Defence speaks through VoiceOver.'
+    plist['NSAppleEventsUsageDescription'] = 'AudioDefenceOriginal speaks through VoiceOver.'
     with open(info, 'wb') as fh:
         plistlib.dump(plist, fh)
     say('signing %s ...' % os.path.basename(app))
@@ -512,7 +512,7 @@ def test_build(exe: str) -> int:
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog='compiler.py', description='build Audio Defence with PyInstaller')
+    parser = argparse.ArgumentParser(prog='compiler.py', description='build AudioDefenceOriginal with PyInstaller')
     parser.add_argument('--onefile', action='store_true',
                         help='one executable instead of one folder (unpacks itself at every launch)')
     parser.add_argument('--no-game', action='store_true',
@@ -658,7 +658,7 @@ if host.MAC:                                            # not offered there: see
 def menu() -> list | None:
     """Ask which build.  Returns the flags for it, or None to quit."""
     version = build_version()
-    say('Audio Defence compiler.  VERSION is %s.'
+    say('AudioDefenceOriginal compiler.  VERSION is %s.'
         % (version or 'missing - a release build will start it at %s' % first_version()))
     say()
     for number, (text, _flags) in enumerate(MENU, 1):

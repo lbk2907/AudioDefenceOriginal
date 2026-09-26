@@ -19,7 +19,7 @@ SAMPLE_RATE = 44100
 def write_alsoft_config() -> str:
     path = os.path.join(paths.user_dir(), 'alsoft.ini')
     lines = [
-        '# Written by Audio Defence at start-up; edits are overwritten.',
+        '# Written by AudioDefenceOriginal at start-up; edits are overwritten.',
         '[general]',
         'stereo-encoding = hrtf',
         'hrtf = true',
