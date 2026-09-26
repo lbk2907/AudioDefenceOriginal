@@ -12,12 +12,12 @@ build.  Every other choice is one of these flags, which still work typed out:
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-A build makes one folder, dist\\AudioDefence, with the game's data copied in, and ends by zipping it into
-dist\\AudioDefenceOriginal-Win-<VERSION>.zip, which is what a release's asset is.
+A build makes one folder, dist\\AudioDefenceOriginal, with the game's data copied in, and ends by
+zipping it into dist\\AudioDefenceOriginal-Win-<VERSION>.zip, which is what a release's asset is.
 
-On the Mac (uv run compiler.py) the same folder holds AudioDefenceOriginal.app, with the game's data inside the app
-rather than beside it, and the zip is dist/AudioDefenceOriginalMac-<VERSION>.zip.  Both zips go on the same
-release, named so that each platform's can be told from the other (see ARCHIVE_PREFIXES in
+On the Mac (uv run compiler.py) the same folder holds AudioDefenceOriginal.app, with the game's data
+inside the app rather than beside it, and the zip is dist/AudioDefenceOriginalMac-<VERSION>.zip. Both zips
+go on the same release, named so that each platform's can be told from the other (see ARCHIVE_PREFIXES in
 audiodefence/platform/host.py).
 
 The release build - no flags at all - also files the changelog first: the lines under "unrelease:" go
@@ -378,9 +378,9 @@ def executable(dest_root: str, args) -> str:
 
 
 def arrange_mac_app(dest_root: str) -> None:
-    """PyInstaller leaves the app beside the folder it was made from, dist/AudioDefenceOriginal.app next to
-    dist/AudioDefenceOriginal; the app is the whole game, so the folder is replaced by one holding just the app,
-    which the game's data, the side files and the zip then go around as they do on Windows."""
+    """PyInstaller leaves the app beside the folder it was made from, dist/AudioDefenceOriginal.app next
+    to dist/AudioDefenceOriginal; the app is the whole game, so the folder is replaced by one holding just
+    the app, which the game's data, the side files and the zip then go around as they do on Windows."""
     made = os.path.join(HERE, 'dist', NAME + '.app')
     shutil.rmtree(dest_root, ignore_errors=True)
     os.makedirs(dest_root)
