@@ -13,7 +13,7 @@ py AudioDefence.py --challenge tutorial_1
 ```
 
 Testing flags: `--mute`, `--no-speech`, `--exit-after SECONDS`, `--log-level debug`.
-The log is written to `%APPDATA%\AudioDefence\audiodefence.log`; saves live in the same folder.
+The log is written to `%APPDATA%\AudioDefenceOriginal\audiodefence.log`; saves live in the same folder.
 
 ## Ported so far
 

@@ -207,8 +207,8 @@ can be double-clicked, and it takes the options below:
     py AudioDefence.py --challenge tutorial_1
     py AudioDefence.py --help
 
-Settings, saves and the log live in `%APPDATA%\AudioDefence` (on the Mac,
-`~/Library/Application Support/AudioDefence`), in three files:
+Settings, saves and the log live in `%APPDATA%\AudioDefenceOriginal` (on the Mac,
+`~/Library/Application Support/AudioDefenceOriginal`), in three files:
 
 | file | what is in it |
 |---|---|
@@ -230,7 +230,7 @@ app. Nothing in the game itself asks which it is on:
 |---|---|---|
 | the game | `AudioDefence.exe`, with `game/` beside it | `AudioDefence.app`, with the game's data inside it |
 | speech | NVDA, the other screen readers through Prism, SAPI 5 | VoiceOver, then the system voice |
-| settings, saves, log | `%APPDATA%\AudioDefence` | `~/Library/Application Support/AudioDefence` |
+| settings, saves, log | `%APPDATA%\AudioDefenceOriginal` | `~/Library/Application Support/AudioDefenceOriginal` |
 | OpenAL Soft | `vendor/openal/soft_oal.dll` | `vendor/openal-mac/libopenal.dylib` |
 | release zip | `AudioDefence-Win-<version>.zip` | `AudioDefenceMac-<version>.zip` |
 | leaving the game | Alt+F4, or Quit | Cmd+Q, or Quit |
@@ -1162,7 +1162,7 @@ executable, not inside the payload.)
     py compiler.py --test
 
 After building it starts the game for ten seconds and reads
-`%APPDATA%\AudioDefence\audiodefence.log` for the three things that matter:
+`%APPDATA%\AudioDefenceOriginal\audiodefence.log` for the three things that matter:
 that the first line says `game data: … (from the game folder next to the
 executable)` and not `(missing)`; that `game HRTF audiodefence_ircam1050 not in
 use` does not appear, which would mean `assets/hrtf` never made it into the
@@ -1198,7 +1198,7 @@ The script passes `--windowed`, so the built game is one window and not two: a
 console alongside it would be another thing in the alt-tab order announcing
 itself, for nothing. What a console is good for is the moment start-up fails,
 so `_report_failure` in `AudioDefence.py` does that job without one — it writes
-the traceback to `%APPDATA%\AudioDefence\crash.txt` and speaks a line saying
+the traceback to `%APPDATA%\AudioDefenceOriginal\crash.txt` and speaks a line saying
 so, and falls back to printing and waiting for Enter when there *is* a console
 to print in. Build with `--console` to get one; a run from source has had one
 all along.
@@ -1216,7 +1216,7 @@ first start while it scans. Signing is the only real cure.
 
 ## Troubleshooting
 
-Everything the port does is logged to `%APPDATA%\AudioDefence\audiodefence.log`
+Everything the port does is logged to `%APPDATA%\AudioDefenceOriginal\audiodefence.log`
 (`--log-level debug` for more). If it fails before it can play anything, the
 traceback is spoken and written to `crash.txt` in that same folder.
 

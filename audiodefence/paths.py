@@ -77,7 +77,9 @@ def user_dir() -> str:
         base = os.path.join(os.path.expanduser('~'), 'Library', 'Application Support')
     else:
         base = os.environ.get('APPDATA') or os.path.expanduser('~')
-    path = os.path.join(base, 'AudioDefence')
+    # this copy keeps its own profile: the folder is named for the repository, so a build of it and a
+    # build of the repository it was taken from do not read and write each other's saves.
+    path = os.path.join(base, 'AudioDefenceOriginal')
     os.makedirs(path, exist_ok=True)
     return path
 

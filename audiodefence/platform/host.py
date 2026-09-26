@@ -7,16 +7,16 @@ game itself never asks ``sys.platform``.
 
 Windows and Mac, one for one:
 
-=================================  ==========================================
-Windows                            Mac
-=================================  ==========================================
-``vendor/openal/soft_oal.dll``     ``vendor/openal-mac/libopenal.dylib`` (the same OpenAL Soft)
-NVDA, Prism, SAPI 5                VoiceOver, then the system voice (platform/macspeech.py)
-``%APPDATA%\\AudioDefence``         ``~/Library/Application Support/AudioDefence``
-``SDL2.dll`` beside pygame         ``libSDL2-2.0.0.dylib`` in pygame's ``.dylibs``
-``AudioDefence.exe``               ``AudioDefence.app``
-Alt+F4                             Cmd+Q
-=================================  ==========================================
+===================================  ============================================================
+Windows                              Mac
+===================================  ============================================================
+``vendor/openal/soft_oal.dll``       ``vendor/openal-mac/libopenal.dylib`` (the same OpenAL Soft)
+NVDA, Prism, SAPI 5                  VoiceOver, then the system voice (platform/macspeech.py)
+``%APPDATA%\\AudioDefenceOriginal``  ``~/Library/Application Support/AudioDefenceOriginal``
+``SDL2.dll`` beside pygame           ``libSDL2-2.0.0.dylib`` in pygame's ``.dylibs``
+``AudioDefence.exe``                 ``AudioDefence.app``
+Alt+F4                               Cmd+Q
+===================================  ============================================================
 """
 from __future__ import annotations
 
